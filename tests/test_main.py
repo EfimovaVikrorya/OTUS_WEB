@@ -1,64 +1,58 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
-
-PAGE_NAME = "/index.php"
-
-
-class Config:
-    FAST = 1
-    NORM = 2
-    SLOW = 3
-    VERY_SLOW = 4
+from page_object.MainPage import MainPage
+from page_object.elements.HederElement import HederElement
+from page_object.elements.AlertElement import AlertElement
 
 
 def test_main_currency(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".hidden-md")))
+    main_page = MainPage(driver)
+    main_page.open_page()
+    # надпись валюта
+    el = HederElement(driver).currency()
     assert el.text == "Currency"
 
 
 def test_main_logo(driver):
-    driver.get(driver.url + PAGE_NAME)
-    WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#logo")))
+    main_page = MainPage(driver)
+    main_page.open_page()
+    # лого
+    HederElement(driver).logo()
 
 
-def test_main_wishlist(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".fa-shopping-cart")))
+def test_main_sopping_cart(driver):
+    main_page = MainPage(driver)
+    main_page.open_page()
+    #  клик по корзине сверху
+    el = HederElement(driver).shopping_cart()
     el.click()
-    el1 = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".col-sm-12")))
+    # надпись
+    el1 = AlertElement(driver).find_alert_shopping_cart_empty()
     assert el1.text == "Shopping Cart\nYour shopping cart is empty!\nContinue"
 
 
 def test_main_search(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#search")))
+    main_page = MainPage(driver)
+    main_page.open_page()
+    #  поле поиска продукта
+    el = HederElement(driver).field_serch()
     assert el.text == ""
 
 
 def test_main_acccount(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, ".fa-phone")))
+    main_page = MainPage(driver)
+    main_page.open_page()
+    #  клик по знаку телефона
+    el = HederElement(driver).phone()
     el.click()
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#content")))
+    # открытие формы контактные данные
+    el = main_page.form_contact_us()
     assert el.text == ('Contact Us\n'
-                        'Our Location\n'
-                        'Your Store\n'
-                        'Address 1\n'
-                        'Telephone\n'
-                        '123456789\n'
-                        '\n'
-                        'Contact Form\n'
-                        'Your Name\n'
-                        'E-Mail Address\n'
-                        'Enquiry')
-
+                       'Our Location\n'
+                       'Your Store\n'
+                       'Address 1\n'
+                       'Telephone\n'
+                       '123456789\n'
+                       '\n'
+                       'Contact Form\n'
+                       'Your Name\n'
+                       'E-Mail Address\n'
+                       'Enquiry')
