@@ -1,6 +1,7 @@
 from page_object.MainPage import MainPage
 from page_object.elements.HederElement import HederElement
 from page_object.elements.AlertElement import AlertElement
+from selenium.webdriver.support.ui import Select
 
 
 def test_main_currency(driver):
@@ -9,6 +10,17 @@ def test_main_currency(driver):
     # надпись валюта
     el = HederElement(driver).currency()
     assert el.text == "Currency"
+
+
+def test_check_currency(driver):
+    main_page = MainPage(driver)
+    main_page.open_page()
+    el_BRP = HederElement(driver).GBP_currency()
+    assert el_BRP.text == "£"
+    el_EUR = HederElement(driver).Euro_currency()
+    assert el_EUR.text == "€"
+    el_USD = HederElement(driver).USD_currency()
+    assert el_USD.text == '$'
 
 
 def test_main_logo(driver):
