@@ -45,19 +45,12 @@ class RegisterPage():
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".btn-primary")))
         el_btn_cont.click()
 
-
-    # def agree(self):
-    #     return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
-    #         EC.visibility_of_element_located((By.CSS_SELECTOR, ".agree")))
-
     def agree(self):
         btn_agree = WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "input[name='agree']")))
         btn_agree.click()
         return btn_agree
 
-
     def congradulations(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#common-success")))
-

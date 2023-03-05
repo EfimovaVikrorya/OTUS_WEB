@@ -23,5 +23,3 @@ class AlertElement:
     def find_alert_shopping_cart_empty(self):
         return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".col-sm-12")))
-
-

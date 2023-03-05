@@ -1,3 +1,5 @@
+import time
+
 from page_object.AdminPage import AdminPage
 from page_object.elements.AlertElement import AlertElement
 from page_object.elements.HederElement import HederElement
@@ -52,3 +54,40 @@ def test_click_btn_login_when_enpty_credits(driver):
     # появится алерта варнинг
     el_alert = AlertElement(driver).find_alert_warning()
     assert el_alert.text == 'No match for Username and/or Password.\n×'
+
+
+def test_add_new_product(driver):
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    admin_page.autorization()
+    admin_page.menu_catalog()
+    time.sleep(2)
+    admin_page.menu_products()
+    admin_page.button_plus()
+    product_name = admin_page.field_product_name()
+    product_name.send_keys("rurutt")
+    meta_title = admin_page.field_meta_title()
+    meta_title.send_keys("feehhgrr")
+    model = admin_page.field_model()
+    model.send_keys("fhjhhgff")
+    admin_page.save()
+    el_alert = AlertElement(driver).find_alert_success()
+    assert el_alert.text == "Success: You have modified products!\n×"
+
+
+def test_delete_product(driver):
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    admin_page.autorization()
+    admin_page.menu_catalog()
+    time.sleep(2)
+    admin_page.menu_products()
+    product_name_serch = admin_page.field_product_name_serch()
+    product_name_serch.send_keys("rurutt")
+    admin_page.click_filter()
+    admin_page.click_checkbox_element_for_delete()
+    time.sleep(3)
+    admin_page.click_tresh()
+    driver.switch_to.alert.accept()
+    el_alert = AlertElement(driver).find_alert_success()
+    assert el_alert.text == "Success: You have modified products!\n×"
