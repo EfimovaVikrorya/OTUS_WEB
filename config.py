@@ -1,4 +1,4 @@
-class time_sleep:
+class TimeSleep:
     FAST = 1
     NORM = 2
     SLOW = 3
