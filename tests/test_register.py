@@ -1,132 +1,122 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from page_object.RegisterPage import RegisterPage
+from page_object.elements.AlertElement import AlertElement
 import time
-
-PAGE_NAME = "/index.php?route=account/register"
-
-
-class Config:
-    FAST = 1
-    NORM = 2
-    SLOW = 3
-    VERY_SLOW = 4
 
 
 def test_register_account(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".breadcrumb")))
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    #  надпись где домик
+    el = register_page.house()
     assert el.text == "Account Register"
 
 
 def test__register_not_checkbox_privacy_policy(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_first_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-firstname")))
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    # поле ввода firstname
+    el_first_name = register_page.set_firstname()
     el_first_name.send_keys("Ivan")
-    el_last_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-lastname")))
+    #  поле ввода lastname
+    el_last_name = register_page.set_lastname()
     el_last_name.send_keys("Ivanov")
-    el_email = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-email")))
+    #  поле ввода email
+    el_email = register_page.set_email()
     el_email.send_keys("ivanov@example.com")
-    el_phone = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-telephone")))
+    #  поле вввода телефон
+    el_phone = register_page.set_telephone()
     el_phone.send_keys("12345")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    #  поле ввода пароля
+    el_pwd = register_page.set_confirm_password()
     el_pwd.send_keys("12345")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-confirm")))
+    #  поле ввода подтвержения пароля
+    el_pwd = register_page.set_confirm_password()
     el_pwd.send_keys("12345")
-    el_btn_cont = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".btn-primary")))
-    el_btn_cont.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".alert-danger")))
+    #  кнопка континью и клик на нее
+    register_page.click_btn_continue()
+    #  алерта ванринг
+    el_alert = AlertElement(driver).find_alert_warning()
     assert el_alert.text == "Warning: You must agree to the Privacy Policy!"
 
 
 def test__register_invalid_phone(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_first_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-firstname")))
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    el_first_name = register_page.set_firstname()
     el_first_name.send_keys("Ivan")
-    el_last_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-lastname")))
+    el_last_name = register_page.set_lastname()
     el_last_name.send_keys("Ivanov")
-    el_email = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-email")))
+    el_email = register_page.set_email()
     el_email.send_keys("ivanov@example.com")
-    el_phone = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-telephone")))
+    el_phone = register_page.set_telephone()
     el_phone.send_keys("12")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    el_pwd = register_page.set_password()
     el_pwd.send_keys("12345")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-confirm")))
+    el_pwd = register_page.set_confirm_password()
     el_pwd.send_keys("12345")
-    el_btn_cont = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".btn-primary")))
-    el_btn_cont.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".text-danger")))
+    el_btn_cont = register_page.click_btn_continue()
+    #  алерта текст данжер
+    el_alert = AlertElement(driver).find_text_danger()
     assert el_alert.text == "Telephone must be between 3 and 32 characters!"
 
 
 def test__register_invalid_email(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_first_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-firstname")))
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    el_first_name = register_page.set_firstname()
     el_first_name.send_keys("Ivan")
-    el_last_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-lastname")))
+    el_last_name = register_page.set_lastname()
     el_last_name.send_keys("Ivanov")
-    el_email = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-email")))
+    el_email = register_page.set_email()
     el_email.send_keys("ivanov@example")
-    el_phone = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-telephone")))
+    el_phone = register_page.set_telephone()
     el_phone.send_keys("1245")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    el_pwd = register_page.set_password()
     el_pwd.send_keys("12345")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-confirm")))
+    el_pwd = register_page.set_confirm_password()
     el_pwd.send_keys("12345")
-    el_btn_cont = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".btn-primary")))
-    el_btn_cont.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".text-danger")))
+    el_btn_cont = register_page.click_btn_continue()
+    #  алерта текст данжер
+    el_alert = AlertElement(driver).find_text_danger()
     assert el_alert.text == "E-Mail Address does not appear to be valid!"
 
 
 def test__register_invalid_confirm_pwd(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_first_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-firstname")))
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    el_first_name = register_page.set_firstname()
     el_first_name.send_keys("Ivan")
-    el_last_name = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-lastname")))
+    el_last_name = register_page.set_lastname()
     el_last_name.send_keys("Ivanov")
-    el_email = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-email")))
+    el_email = register_page.set_email()
     el_email.send_keys("ivanov@example.com")
-    el_phone = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-telephone")))
+    el_phone = register_page.set_telephone()
     el_phone.send_keys("1245")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    el_pwd = register_page.set_password()
     el_pwd.send_keys("12345")
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "#input-confirm")))
+    el_pwd = register_page.set_confirm_password()
     el_pwd.send_keys("")
-    el_btn_cont = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".btn-primary")))
-    el_btn_cont.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".text-danger")))
+    el_btn_cont = register_page.click_btn_continue()
+    #  алерта текст данжер
+    el_alert = AlertElement(driver).find_text_danger()
     assert el_alert.text == "Password confirmation does not match password!"
+
+
+def test__register_user(driver):
+    register_page = RegisterPage(driver)
+    register_page.open_page()
+    el_first_name = register_page.set_firstname()
+    el_first_name.send_keys("ttte2")
+    el_last_name = register_page.set_lastname()
+    el_last_name.send_keys("ttte2")
+    el_email = register_page.set_email()
+    el_email.send_keys("te2tt@example.com")
+    el_phone = register_page.set_telephone()
+    el_phone.send_keys("15555")
+    el_pwd = register_page.set_password()
+    el_pwd.send_keys("qwer")
+    el_pwd = register_page.set_confirm_password()
+    el_pwd.send_keys("qwer")
+    el_checkbox = register_page.agree()
+    el_btn_cont = register_page.click_btn_continue()
+    el_congr = register_page.congradulations()

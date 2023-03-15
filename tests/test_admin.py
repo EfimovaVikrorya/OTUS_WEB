@@ -1,62 +1,93 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import time
 
-PAGE_NAME = "/admin"
-
-
-class Config:
-    FAST = 1
-    NORM = 2
-    SLOW = 3
-    VERY_SLOW = 4
+from page_object.AdminPage import AdminPage
+from page_object.elements.AlertElement import AlertElement
+from page_object.elements.HederElement import HederElement
 
 
 def test_admin_empty_credits(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_user = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-username")))
-    el_pwd = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    # найти поля ввода для юзернейма и пароля
+    el_user = admin_page.field_username()
+    el_pwd = admin_page.field_password()
     assert el_user.text == ''
     assert el_pwd.text == ''
 
 
 def test_admin_alias_invalid_password(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el_user = WebDriverWait(driver, Config.FAST, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-username")))
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    # введение данных в поля юзернейм и пароль
+    el_user = admin_page.field_username()
     el_user.send_keys('fghhgg')
-    el_pwd = WebDriverWait(driver, Config.FAST, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-password")))
+    el_pwd = admin_page.field_password()
     el_pwd.send_keys('5678777')
+    # нажать много раз кнопку Login
     for i in range(10):
-        batton = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".fa-key")))
-        batton.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".alert-danger")))
+        admin_page.click_button_login()
+    # дождаться алерта варнинг
+    el_alert = AlertElement(driver).find_alert_warning()
     assert el_alert.text == 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour or reset password.\n×'
 
 
 def test_admin_logo(driver):
-    driver.get(driver.url + PAGE_NAME)
-    WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".navbar-brand")))
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    # на странице есть лого
+    HederElement(driver).logo()
 
 
 def test_admin_text_forgotten_password(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".help-block")))
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    #  найти  надпись "Forgotten Password"
+    el = admin_page.text_forgotten_password()
     assert el.text == "Forgotten Password"
 
 
 def test_click_btn_login_when_enpty_credits(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".fa-key")))
-    el.click()
-    el_alert = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".alert-danger")))
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    # найти кнопку "логин" и кликнуть
+    el = admin_page.click_button_login()
+    # появится алерта варнинг
+    el_alert = AlertElement(driver).find_alert_warning()
     assert el_alert.text == 'No match for Username and/or Password.\n×'
+
+
+def test_add_new_product(driver):
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    admin_page.autorization()
+    admin_page.menu_catalog()
+    time.sleep(2)
+    admin_page.menu_products()
+    admin_page.button_plus()
+    product_name = admin_page.field_product_name()
+    product_name.send_keys("rurutt")
+    meta_title = admin_page.field_meta_title()
+    meta_title.send_keys("feehhgrr")
+    model = admin_page.field_model()
+    model.send_keys("fhjhhgff")
+    admin_page.save()
+    el_alert = AlertElement(driver).find_alert_success()
+    assert el_alert.text == "Success: You have modified products!\n×"
+
+
+def test_delete_product(driver):
+    admin_page = AdminPage(driver)
+    admin_page.open_page()
+    admin_page.autorization()
+    admin_page.menu_catalog()
+    time.sleep(2)
+    admin_page.menu_products()
+    product_name_serch = admin_page.field_product_name_serch()
+    product_name_serch.send_keys("rurutt")
+    admin_page.click_filter()
+    admin_page.click_checkbox_element_for_delete()
+    time.sleep(3)
+    admin_page.click_tresh()
+    driver.switch_to.alert.accept()
+    el_alert = AlertElement(driver).find_alert_success()
+    assert el_alert.text == "Success: You have modified products!\n×"

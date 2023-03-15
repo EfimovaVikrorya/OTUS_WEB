@@ -1,35 +1,27 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-PAGE_NAME = "/apple"
-
-
-class Config:
-    FAST = 1
-    NORM = 2
-    SLOW = 3
-    VERY_SLOW = 4
+from page_object.CatalogPage import CatalogPage
 
 
 def test_catalog_brand_name(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.SLOW, poll_frequency=1).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, ".breadcrumb")))
+    catalog_page = CatalogPage(driver)
+    CatalogPage(driver).open_page()
+    el = CatalogPage(driver).brend()
     assert el.text == 'Brand Apple'
 
 
 def test_catalog_brand_items(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".product-layout")))
+    catalog_page = CatalogPage(driver)
+    CatalogPage(driver).open_page()
+    # количество элементов на странице
+    el = CatalogPage(driver).element_on_the_page()
     assert len(el) == 10
 
 
 def test_catalog_sort(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-sort")))
+    catalog_page = CatalogPage(driver)
+    CatalogPage(driver).open_page()
+    # выпадающий список сортировки
+    el = CatalogPage(driver).dropdown_of_sort()
     assert (el.text == '                                          Default\n' +
             '                                                        Name (A - Z)\n' +
             '                                                        Name (Z - A)\n' +
@@ -44,9 +36,10 @@ def test_catalog_sort(driver):
 
 
 def test_catalog_limit(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#input-limit")))
+    catalog_page = CatalogPage(driver)
+    CatalogPage(driver).open_page()
+    #  выпадающий список количества на странице
+    el = CatalogPage(driver).dropdown_of_limit()
     assert (el.text == '                                          15\n' +
             '                                                        25\n' +
             '                                                        50\n' +
@@ -57,10 +50,10 @@ def test_catalog_limit(driver):
 
 
 def test_catalog_compare(driver):
-    driver.get(driver.url + PAGE_NAME)
-    el = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#compare-total")))
-    el.click()
-    el_cont = WebDriverWait(driver, Config.VERY_SLOW, poll_frequency=1).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#content")))
+    catalog_page = CatalogPage(driver)
+    CatalogPage(driver).open_page()
+    #   клик по надписи Продкуты для сравнения
+    CatalogPage(driver).product_compare()
+    # надпись после перехода
+    el_cont = CatalogPage(driver).product_comparison()
     assert el_cont.text == "Product Comparison\nYou have not chosen any products to compare.\nContinue"
