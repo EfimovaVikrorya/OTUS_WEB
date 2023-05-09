@@ -1,0 +1,44 @@
+Отчёт о состоянии системы:
+Пользователи системы: root, _windowserver, v.efimova, _coreaudiod, _distnote, _datadetectors, _gamecontrollerd, _cmiodalassistants, _accessoryupdater, _nsurlsessiond, _assetcache, _fpsd, localadmin, _installcoordinationd, _spotlight, _rmd, _driverkit, _softwareupdate, _applepay, _nearbyd, _appleevents, _netbios, _captiveagent, _oahd, _ctkd, _securityagent, _locationd, _mdnsresponder, _hidd, _trustd, _iconservices, _analyticsd, _networkd, _biome, _usbmuxd, _timed
+Процессов запущено: 595
+Пользовательских процессов:
+	v.efimova: 325
+	root: 169
+	_spotlight: 12
+	_accessoryupdater: 11
+	_cmiodalassistants: 9
+	_rmd: 7
+	_locationd: 7
+	_softwareupdate: 6
+	_coreaudiod: 5
+	localadmin: 5
+	_gamecontrollerd: 3
+	_nsurlsessiond: 3
+	_assetcache: 3
+	_driverkit: 3
+	_applepay: 3
+	_windowserver: 2
+	_fpsd: 2
+	_appleevents: 2
+	_distnote: 1
+	_datadetectors: 1
+	_installcoordinationd: 1
+	_nearbyd: 1
+	_netbios: 1
+	_captiveagent: 1
+	_oahd: 1
+	_ctkd: 1
+	_securityagent: 1
+	_mdnsresponder: 1
+	_hidd: 1
+	_trustd: 1
+	_iconservices: 1
+	_analyticsd: 1
+	_networkd: 1
+	_biome: 1
+	_usbmuxd: 1
+	_timed: 1
+Всего памяти используется: 72.2%
+Всего CPU используется: 105.7%
+Больше всего памяти использует: / A p p l i c a t i  (7.4%)
+Больше всего CPU использует: / A p p l i c a t i  (34.5%)
