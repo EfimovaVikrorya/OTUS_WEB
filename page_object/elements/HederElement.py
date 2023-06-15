@@ -10,7 +10,7 @@ class HederElement:
 
     def logo(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, ".navbar-brand")))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, ".img-responsive")))
 
     def items_in_cart(self):
         return WebDriverWait(self.driver, time_sleep.NORM, poll_frequency=1).until(

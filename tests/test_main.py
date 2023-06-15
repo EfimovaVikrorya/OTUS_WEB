@@ -2,8 +2,12 @@ from page_object.MainPage import MainPage
 from page_object.elements.HederElement import HederElement
 from page_object.elements.AlertElement import AlertElement
 from selenium.webdriver.support.ui import Select
+import  time
+import pytest
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -12,6 +16,8 @@ def test_main_currency(driver):
     assert el.text == "Currency"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_check_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -23,6 +29,8 @@ def test_check_currency(driver):
     assert el_USD.text == '$'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_logo(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -30,6 +38,8 @@ def test_main_logo(driver):
     HederElement(driver).logo()
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_sopping_cart(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -41,6 +51,8 @@ def test_main_sopping_cart(driver):
     assert el1.text == "Shopping Cart\nYour shopping cart is empty!\nContinue"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_search(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -49,6 +61,8 @@ def test_main_search(driver):
     assert el.text == ""
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_acccount(driver):
     main_page = MainPage(driver)
     main_page.open_page()

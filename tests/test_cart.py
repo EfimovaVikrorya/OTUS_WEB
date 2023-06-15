@@ -2,8 +2,10 @@ from page_object.CartPage import CartPage
 from page_object.elements.AlertElement import AlertElement
 from page_object.elements.HederElement import HederElement
 import time
+import pytest
 
-
+@pytest.mark.ui
+@pytest.mark.all
 def test_cart_text_description(driver):
     cart_page = CartPage(driver)
     cart_page.open_page()
@@ -16,6 +18,8 @@ def test_cart_text_description(driver):
                       'whatever order you want just like email.'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_cart_alert_success(driver):
     cart_page = CartPage(driver)
     cart_page.open_page()
@@ -26,6 +30,8 @@ def test_cart_alert_success(driver):
     assert alert.text == "Success: You have added iPhone to your shopping cart!\n×"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_cart_item_in_sopping_cart(driver):
     cart_page = CartPage(driver)
     cart_page.open_page()
@@ -37,6 +43,8 @@ def test_cart_item_in_sopping_cart(driver):
     assert btn_item.text == '1 item(s) - $123.20'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_cart_item_reset(driver):
     cart_page = CartPage(driver)
     cart_page.open_page()
@@ -55,9 +63,11 @@ def test_cart_item_reset(driver):
     assert btn_item.text == '0 item(s) - $0.00'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_cart_rating(driver):
     cart_page = CartPage(driver)
     cart_page.open_page()
     # рейтинг
     el = cart_page.rating()
-    assert el.text == '0 reviews / Write a review\nTweet\nShare'
+    assert el.text == '0 reviews / Write a review'
