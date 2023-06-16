@@ -2,7 +2,7 @@ from page_object.MainPage import MainPage
 from page_object.elements.HederElement import HederElement
 from page_object.elements.AlertElement import AlertElement
 from selenium.webdriver.support.ui import Select
-import  time
+import time
 import pytest
 
 
@@ -11,6 +11,7 @@ import pytest
 def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
+    time.sleep(10)
     # надпись валюта
     el = HederElement(driver).currency()
     assert el.text == "Currency"
