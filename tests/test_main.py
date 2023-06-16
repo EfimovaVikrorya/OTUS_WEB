@@ -6,17 +6,6 @@ import time
 import pytest
 
 
-# @pytest.mark.ui
-# @pytest.mark.all
-# def test_main_currency(driver):
-#     main_page = MainPage(driver)
-#     main_page.open_page()
-#     # надпись валюта
-#     el = HederElement(driver).currency()
-#     time.sleep(100)
-#     assert el.text == "Currency"
-
-
 @pytest.mark.ui
 @pytest.mark.all
 def test_check_currency(driver):
