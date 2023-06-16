@@ -6,6 +6,17 @@ import time
 import pytest
 
 
+# @pytest.mark.ui
+# @pytest.mark.all
+# def test_main_currency(driver):
+#     main_page = MainPage(driver)
+#     main_page.open_page()
+#     # надпись валюта
+#     el = HederElement(driver).currency()
+#     time.sleep(100)
+#     assert el.text == "Currency"
+
+
 @pytest.mark.ui
 @pytest.mark.all
 def test_check_currency(driver):
@@ -38,6 +49,7 @@ def test_main_sopping_cart(driver):
     el.click()
     # надпись
     el1 = AlertElement(driver).find_alert_shopping_cart_empty()
+    time.sleep(100)
     assert el1.text == "Shopping Cart\nYour shopping cart is empty!\nContinue"
 
 
