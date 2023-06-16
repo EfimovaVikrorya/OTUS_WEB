@@ -11,9 +11,9 @@ import pytest
 def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
-    time.sleep(30)
     # надпись валюта
     el = HederElement(driver).currency()
+    time.sleep(100)
     assert el.text == "Currency"
 
 
