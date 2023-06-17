@@ -88,7 +88,7 @@ def test_add_new_product(driver):
 
 
 @pytest.mark.ui
-@pytest.mark.check
+@pytest.mark.all
 def test_delete_product(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
