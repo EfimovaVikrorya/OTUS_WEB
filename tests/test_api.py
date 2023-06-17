@@ -88,25 +88,6 @@ def test_add_to_cart_invalid_quantity(api_token, config):
     assert remove_cart.status_code == 200
 
 
-# @pytest.mark.api
-# def test_add_to_cart_two_products(api_token, config):
-#     add_to_cart_1= requests.post(f"{config['base_url']}api/cart/add",
-#         params={"api_token":api_token},data={"product_id":"48", "quantity":"1"})
-#     assert add_to_cart_1.status_code == 200
-#     add_to_cart_2= requests.post(f"{config['base_url']}api/cart/add",
-#         params={"api_token":api_token},data={"product_id":"31", "quantity":"1"})
-#     assert add_to_cart_2.status_code == 200
-#     list_in_cart = requests.post(f"{config['base_url']}api/cart/products",
-#         params={"api_token":api_token},data={})
-#     assert list_in_cart.status_code == 200
-#     row = list_in_cart.json()
-#     print(row)
-#     assert len(row['products']) == 2
-#     # r = requests.post(f"{config['base_url']}api/cart/remove",
-#     #                   params={"api_token": api_token}, data={"key": "1"})
-#     # assert r.status_code == 200
-
-
 @pytest.mark.api
 @pytest.mark.all
 def test_edit_quantity(api_token, config):
@@ -145,26 +126,6 @@ def test_add_shipping_address(api_token, config):
     assert row == {'success': 'Success: Shipping address has been set!'}
 
 
-# @pytest.mark.api
-# def test_add_shipping_method(api_token, config):
-#     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
-#                                 params={"api_token": api_token}, data={"product_id": "48", "quantity": "1"})
-#     assert add_to_cart.status_code == 200
-#     add_shipping_address = requests.post(f"{config['base_url']}api/shipping/address",
-#                                          params={"api_token": api_token},
-#                                          data={"firstname": "Ivan", "lastname": "Ivanov", "address_1": "Lenina st",
-#                                                "city": "Tula", "postcode": "101233", "country_id": "RUS",
-#                                                "zone_id": "KGD"})
-#     assert add_shipping_address.status_code == 200
-#     row = add_shipping_address.json()
-#     assert row == {'success': 'Success: Shipping address has been set!'}
-#     add_shipping_method = requests.post(f"{config['base_url']}api/shipping/method",
-#                                          params={"api_token": api_token},
-#                                          data={"shipping_method": "pickup.pickup"})
-#     assert add_shipping_method.status_code == 200
-#     row1 = add_shipping_method.json()
-
-
 @pytest.mark.api
 @pytest.mark.all
 def test_get_shipping_methods(api_token, config):
@@ -174,48 +135,6 @@ def test_get_shipping_methods(api_token, config):
     row = get_methods.json()
     print(row)
 
-
-# @pytest.mark.api
-# def test_add_new_order(api_token, config):
-#     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
-#                                 params={"api_token": api_token}, data={"product_id": "48", "quantity": "1"})
-#     assert add_to_cart.status_code == 200
-#     add_shipping_address= requests.post(f"{config['base_url']}api/shipping/address",
-#         params={"api_token":api_token},data={"firstname":"Ivan", "lastname":"Ivanov","address_1":"Lenina st", "city":"Tula","postcode":"101233","country_id":"RUS", "zone_id":"KGD"})
-#     assert add_shipping_address.status_code == 200
-#     row = add_shipping_address.json()
-#     add_shipping_method = requests.post(f"{config['base_url']}api/shipping/method",
-#                                         params={"api_token": api_token},
-#                                         data={"shipping_method": "flat"})
-#     assert add_shipping_method.status_code == 200
-#     assert row == {'success': 'Success: Shipping address has been set!'}
-#     add_new_order = requests.post(f"{config['base_url']}api/order/add",
-#                                 params={"api_token": api_token})
-#     assert add_new_order.status_code == 200
-#     print(add_new_order.json())
-
-
-# @pytest.mark.api
-# def test_edit_order(api_token, config):
-#     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
-#                                 params={"api_token": api_token}, data={"product_id": "48", "quantity": "1000"})
-#     assert add_to_cart.status_code == 200
-#     add_shipping_address = requests.post(f"{config['base_url']}api/shipping/address",
-#                                          params={"api_token": api_token},
-#                                          data={"firstname": "Ivan", "lastname": "Ivanov", "address_1": "Lenina st",
-#                                                "city": "Tula", "postcode": "101233", "country_id": "RUS",
-#                                                "zone_id": "KGD"})
-#     assert add_shipping_address.status_code == 200
-#     row = add_shipping_address.json()
-#     assert row == {'success': 'Success: Shipping address has been set!'}
-#     add_new_order = requests.post(f"{config['base_url']}api/order/add",
-#                                      params={"api_token": api_token})
-#     assert add_new_order.status_code == 200
-#     assert row == {'success': 'Success: Shipping address has been set!'}
-#     edit_order = requests.post(f"{config['base_url']}api/order/edit",
-#                                   params={"api_token": api_token})
-#     assert edit_order.status_code == 200
-#     print(edit_order.json())
 
 @allure.title('Customer for session with {firstname}, {lastname}, {email}, {telephone}')
 @pytest.mark.parametrize('firstname',['ewtwtete','12345'])
