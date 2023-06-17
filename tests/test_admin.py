@@ -1,5 +1,5 @@
 import time
-import  pytest
+import pytest
 from page_object.AdminPage import AdminPage
 from page_object.elements.AlertElement import AlertElement
 from page_object.elements.HederElement import HederElement
