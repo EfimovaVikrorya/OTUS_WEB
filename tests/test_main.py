@@ -7,7 +7,7 @@ import pytest
 
 
 @pytest.mark.ui
-@pytest.mark.check
+@pytest.mark.all
 def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
