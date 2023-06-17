@@ -13,7 +13,7 @@ def test_main_currency(driver):
     main_page.open_page()
     # надпись валюта
     el = HederElement(driver).currency_clickable()
-    assert el.text == "$"
+    assert el.text == "$  "
 
 
 @pytest.mark.ui
