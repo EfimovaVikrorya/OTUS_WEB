@@ -83,8 +83,8 @@ class AdminPage:
             EC.element_to_be_clickable((By.CSS_SELECTOR, "#input-name")))
 
     def click_filter(self):
-        btn_filter = WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "#button-filter")))
+        btn_filter = WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "#button-filter")))
         btn_filter.click()
 
     def click_checkbox_element_for_delete(self):
