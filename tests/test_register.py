@@ -119,7 +119,7 @@ def test__register_user(driver):
     register_page = RegisterPage(driver)
     register_page.open_page()
     el_first_name = register_page.set_firstname()
-    el_first_name.send_keys("ttte2")
+    el_first_name.send_keys("ttte22")
     el_last_name = register_page.set_lastname()
     el_last_name.send_keys("ttte2")
     el_email = register_page.set_email()

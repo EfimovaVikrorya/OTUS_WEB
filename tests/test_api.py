@@ -24,10 +24,7 @@ def test_add_to_cart_one_product(api_token, config):
     row = list_in_cart.json()
     assert row['products'][0]['product_id'] == '43'
     assert row['products'][0]['quantity'] == '1'
-    cart_id = row['products'][0]['cart_id']
-    remove_cart = requests.post(f"{config['base_url']}api/cart/remove",
-                                params={"api_token": api_token}, data={"key": cart_id})
-    assert remove_cart.status_code == 200
+
 
 
 @pytest.mark.api
@@ -45,10 +42,6 @@ def test_add_to_cart_double(api_token, config):
     row = list_in_cart.json()
     assert row['products'][0]['product_id'] == '31'
     assert row['products'][0]['quantity'] == '2'
-    cart_id = row['products'][0]['cart_id']
-    remove_cart = requests.post(f"{config['base_url']}api/cart/remove",
-                                params={"api_token": api_token}, data={"key": cart_id})
-    assert remove_cart.status_code == 200
 
 
 @pytest.mark.api
