@@ -25,8 +25,8 @@ class HederElement:
             EC.presence_of_element_located((By.XPATH, "//span[text()='Shopping Cart']")))
 
     def shopping_cart_clickable(self):
-        return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
-            EC.element_to_be_clickable((By.XPATH, "//span[text()='Shopping Cart']")))
+        return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
+            EC.element_to_be_clickable((By.XPATH, ".//a[@title='Shopping Cart']")))
 
     def field_serch(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(

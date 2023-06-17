@@ -40,7 +40,7 @@ def test_main_logo(driver):
 
 
 @pytest.mark.ui
-@pytest.mark.all
+@pytest.mark.check
 def test_main_sopping_cart(driver):
     main_page = MainPage(driver)
     main_page.open_page()
