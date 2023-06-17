@@ -5,6 +5,7 @@ import conftest
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_currency(api_token, config):
     r = requests.post(f"{config['base_url']}api/currency",
                       params={"api_token": api_token}, data={"currency": "USD"})
@@ -12,6 +13,7 @@ def test_currency(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_add_to_cart_one_product(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "43", "quantity": "1"})
@@ -25,6 +27,7 @@ def test_add_to_cart_one_product(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_add_to_cart_double(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "31", "quantity": "1"})
@@ -41,6 +44,7 @@ def test_add_to_cart_double(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_delete_product(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "44", "quantity": "1"})
@@ -61,6 +65,7 @@ def test_delete_product(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_add_to_cart_invalid_quantity(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "43", "quantity": "1000"})
@@ -102,6 +107,7 @@ def test_add_to_cart_invalid_quantity(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_edit_quantity(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "48", "quantity": "1000"})
@@ -123,6 +129,7 @@ def test_edit_quantity(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_add_shipping_address(api_token, config):
     add_to_cart = requests.post(f"{config['base_url']}api/cart/add",
                                 params={"api_token": api_token}, data={"product_id": "48", "quantity": "1"})
@@ -158,6 +165,7 @@ def test_add_shipping_address(api_token, config):
 
 
 @pytest.mark.api
+@pytest.mark.all
 def test_get_shipping_methods(api_token, config):
     get_methods = requests.post(f"{config['base_url']}api/shipping/methods",
                                 params={"api_token": api_token})
@@ -214,6 +222,7 @@ def test_get_shipping_methods(api_token, config):
 @pytest.mark.parametrize('email',['rr@ddd.com','rr12d@dd.com'])
 @pytest.mark.parametrize('telephone', ['+122344','223445'])
 @pytest.mark.api
+@pytest.mark.all
 def test_customer_for_session(api_token, config, firstname,lastname,email,telephone ):
     customer_for_session = requests.post(f"{config['base_url']}api/customer",
                                          params={"api_token": api_token},
