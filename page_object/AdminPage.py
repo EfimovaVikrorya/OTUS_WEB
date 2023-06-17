@@ -80,11 +80,11 @@ class AdminPage:
 
     def field_product_name_serch(self):
         return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
-            EC.presence_of_element_located((By.XPATH, ".//input[@name= 'filter_name']")))
+            EC.presence_of_element_located((By.XPATH, ".//input[@name='filter_name']")))
 
     def click_filter(self):
         btn_filter = WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
-            EC.element_to_be_clickable((By.XPATH, ".//button[@id = 'button-filter']")))
+            EC.element_to_be_clickable((By.XPATH, ".//button[@id ='button-filter']")))
         btn_filter.click()
 
     def click_checkbox_element_for_delete(self):
