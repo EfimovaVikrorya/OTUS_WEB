@@ -79,7 +79,7 @@ class AdminPage:
         btn_save.click()
 
     def field_product_name_serch(self):
-        return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
+        return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "#input-name")))
 
     def click_filter(self):
