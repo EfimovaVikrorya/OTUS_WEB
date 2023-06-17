@@ -18,7 +18,7 @@ class HederElement:
 
     def currency(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
-            EC.presence_of_element_located((By.XPATH, "//span[text()='Currency']")))
+            EC.presence_of_element_located((By.XPATH, ".//div[text()='Currency']")))
 
     def shopping_cart(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
