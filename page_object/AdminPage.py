@@ -80,7 +80,7 @@ class AdminPage:
 
     def field_product_name_search(self):
         return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
-            EC.element_to_be_clickable((By.XPATH, ".//input[@name='filter_name']")))
+            EC.presence_of_element_located((By.XPATH, ".//input[@name='filter_name']")))
 
     def click_filter(self):
         btn_filter = WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(

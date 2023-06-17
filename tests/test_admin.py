@@ -97,6 +97,7 @@ def test_delete_product(driver):
     time.sleep(2)
     admin_page.menu_products()
     product_name_search = admin_page.field_product_name_search()
+    time.sleep(2)
     product_name_search.send_keys("rurutt")
     admin_page.click_filter()
     admin_page.click_checkbox_element_for_delete()

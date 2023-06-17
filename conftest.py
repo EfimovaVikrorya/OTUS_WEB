@@ -27,6 +27,7 @@ def driver(request):
             options.add_argument("--headless")
             options.add_argument("--disable-gpu")
             options.add_argument("--no-sandbox")
+            options.add_argument("--window-size=1920,1080")
         _driver = webdriver.Chrome(executable_path=f"{driver_storage}/chromedriver", options=options)
     elif browser_name == "firefox" or browser_name == "ff":
         options = webdriver.FirefoxOptions()
