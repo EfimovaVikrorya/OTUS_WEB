@@ -22,7 +22,7 @@ class HederElement:
 
     def currency_clickable(self):
         return WebDriverWait(self.driver, time_sleep.VERY_SLOW, poll_frequency=1).until(
-            EC.presence_of_element_located((By.XPATH, ".//div[text()='Currency']")))
+            EC.presence_of_element_located((By.XPATH, ".//div[@class='pull-left']")))
 
     def shopping_cart(self):
         return WebDriverWait(self.driver, time_sleep.SLOW, poll_frequency=1).until(
