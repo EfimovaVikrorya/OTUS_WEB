@@ -44,9 +44,8 @@ def test_main_logo(driver):
 def test_main_sopping_cart(driver):
     main_page = MainPage(driver)
     main_page.open_page()
-    time.sleep(30)
     #  клик по корзине сверху
-    el = HederElement(driver).shopping_cart()
+    el = HederElement(driver).shopping_cart_clickable()
     el.click()
     # надпись
     el1 = AlertElement(driver).find_alert_shopping_cart_empty()
