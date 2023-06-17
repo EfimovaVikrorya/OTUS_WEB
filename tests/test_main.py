@@ -12,7 +12,7 @@ def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
     # надпись валюта
-    el = HederElement(driver).currency()
+    el = HederElement(driver).currency_clickable()
     assert el.text == "Currency"
 
 
@@ -39,7 +39,7 @@ def test_main_logo(driver):
 
 
 @pytest.mark.ui
-@pytest.mark.check
+@pytest.mark.all
 def test_main_sopping_cart(driver):
     main_page = MainPage(driver)
     main_page.open_page()
