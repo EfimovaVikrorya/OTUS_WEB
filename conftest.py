@@ -3,6 +3,7 @@ from selenium import webdriver
 import os
 import requests
 
+
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome", help="Browser")
     parser.addoption("--driver_storage", default=os.path.expanduser("~/dev/drivers"), help="Storage browser")
@@ -56,5 +57,3 @@ def api_token():
 @pytest.fixture(scope="session", autouse=True)
 def config():
     return {"base_url": "http://141.105.64.208:8081/index.php?route="}
-
-
