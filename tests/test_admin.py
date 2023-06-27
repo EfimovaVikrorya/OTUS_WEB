@@ -1,10 +1,12 @@
 import time
-
+import pytest
 from page_object.AdminPage import AdminPage
 from page_object.elements.AlertElement import AlertElement
 from page_object.elements.HederElement import HederElement
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_admin_empty_credits(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -15,6 +17,8 @@ def test_admin_empty_credits(driver):
     assert el_pwd.text == ''
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_admin_alias_invalid_password(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -31,13 +35,17 @@ def test_admin_alias_invalid_password(driver):
     assert el_alert.text == 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour or reset password.\n×'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_admin_logo(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
     # на странице есть лого
-    HederElement(driver).logo()
+    admin_page.admin_logo()
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_admin_text_forgotten_password(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -46,6 +54,8 @@ def test_admin_text_forgotten_password(driver):
     assert el.text == "Forgotten Password"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_click_btn_login_when_enpty_credits(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -56,6 +66,8 @@ def test_click_btn_login_when_enpty_credits(driver):
     assert el_alert.text == 'No match for Username and/or Password.\n×'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_add_new_product(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -75,6 +87,8 @@ def test_add_new_product(driver):
     assert el_alert.text == "Success: You have modified products!\n×"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_delete_product(driver):
     admin_page = AdminPage(driver)
     admin_page.open_page()
@@ -82,8 +96,9 @@ def test_delete_product(driver):
     admin_page.menu_catalog()
     time.sleep(2)
     admin_page.menu_products()
-    product_name_serch = admin_page.field_product_name_serch()
-    product_name_serch.send_keys("rurutt")
+    product_name_search = admin_page.field_product_name_search()
+    time.sleep(2)
+    product_name_search.send_keys("rurutt")
     admin_page.click_filter()
     admin_page.click_checkbox_element_for_delete()
     time.sleep(3)

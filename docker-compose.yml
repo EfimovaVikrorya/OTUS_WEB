@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  phpadmin:
+    image: 'phpmyadmin/phpmyadmin:latest'
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+    ports:
+      - '8888:80'
+    restart: always
+
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.3
+    environment:
+      - MARIADB_USER=bn_opencart
+      - MARIADB_PASSWORD=eY49_PqZ
+      - MARIADB_DATABASE=bitnami_opencart
+      - MARIADB_ROOT_PASSWORD=uiDwe7kcU298ewui_32jhJ
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb'
+    restart: always
+
+  opencart:
+    image: docker.io/bitnami/opencart:3
+    ports:
+      - '8081:8080'
+      - '8443:8443'
+    environment:
+      - OPENCART_HOST=141.105.64.208:8081
+      - OPENCART_DATABASE_HOST=mariadb
+      - OPENCART_DATABASE_PORT_NUMBER=3306
+      - OPENCART_DATABASE_USER=bn_opencart
+      - OPENCART_DATABASE_PASSWORD=eY49_PqZ
+      - OPENCART_DATABASE_NAME=bitnami_opencart
+      - OPENCART_PASSWORD=eY49_PqZ
+    volumes:
+      - 'opencart_data:/bitnami/opencart'
+      - 'opencart_storage_data:/bitnami/opencart_storage/'
+    depends_on:
+      - mariadb
+    restart: always
+
+volumes:
+  mariadb_data:
+    driver: local
+  opencart_data:
+    driver: local
+  opencart_storage_data:
+    driver: local

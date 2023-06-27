@@ -2,16 +2,22 @@ from page_object.MainPage import MainPage
 from page_object.elements.HederElement import HederElement
 from page_object.elements.AlertElement import AlertElement
 from selenium.webdriver.support.ui import Select
+import time
+import pytest
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
     # надпись валюта
-    el = HederElement(driver).currency()
-    assert el.text == "Currency"
+    el = HederElement(driver).currency_clickable()
+    assert el.text == "$ Currency "
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_check_currency(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -23,6 +29,8 @@ def test_check_currency(driver):
     assert el_USD.text == '$'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_logo(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -30,17 +38,21 @@ def test_main_logo(driver):
     HederElement(driver).logo()
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_sopping_cart(driver):
     main_page = MainPage(driver)
     main_page.open_page()
     #  клик по корзине сверху
-    el = HederElement(driver).shopping_cart()
+    el = HederElement(driver).shopping_cart_clickable()
     el.click()
     # надпись
     el1 = AlertElement(driver).find_alert_shopping_cart_empty()
     assert el1.text == "Shopping Cart\nYour shopping cart is empty!\nContinue"
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_search(driver):
     main_page = MainPage(driver)
     main_page.open_page()
@@ -49,6 +61,8 @@ def test_main_search(driver):
     assert el.text == ""
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_main_acccount(driver):
     main_page = MainPage(driver)
     main_page.open_page()

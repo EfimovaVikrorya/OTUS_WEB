@@ -1,7 +1,9 @@
-
+import  pytest
 from page_object.CatalogPage import CatalogPage
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_catalog_brand_name(driver):
     catalog_page = CatalogPage(driver)
     CatalogPage(driver).open_page()
@@ -9,6 +11,8 @@ def test_catalog_brand_name(driver):
     assert el.text == 'Brand Apple'
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_catalog_brand_items(driver):
     catalog_page = CatalogPage(driver)
     CatalogPage(driver).open_page()
@@ -17,6 +21,8 @@ def test_catalog_brand_items(driver):
     assert len(el) == 10
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_catalog_sort(driver):
     catalog_page = CatalogPage(driver)
     CatalogPage(driver).open_page()
@@ -35,6 +41,8 @@ def test_catalog_sort(driver):
             '            ')
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_catalog_limit(driver):
     catalog_page = CatalogPage(driver)
     CatalogPage(driver).open_page()
@@ -49,6 +57,8 @@ def test_catalog_limit(driver):
             '            ')
 
 
+@pytest.mark.ui
+@pytest.mark.all
 def test_catalog_compare(driver):
     catalog_page = CatalogPage(driver)
     CatalogPage(driver).open_page()
